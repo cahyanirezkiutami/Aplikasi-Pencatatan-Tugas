@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <!-- ======================================================== -->
+    <!-- BAGIAN METADATA & LINK EKSTERNAL                         -->
+    <!-- ======================================================== -->
+    <!-- Menentukan karakter encoding standar dunia (UTF-8) -->
+    <meta charset="UTF-8">
+    
+    <!-- Mengaktifkan responsivitas layout agar pas di layar perangkat mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Judul aplikasi yang akan tampil di tab browser -->
+    <title>Aplikasi Pencatat Tugas & Skor</title>
+    
+    <!-- Menghubungkan file stylesheet eksternal untuk mempercantik tampilan -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Container Utama: Pembungkus seluruh elemen aplikasi agar terpusat -->
+    <div class="app-container">
+        
+        <!-- HEADER APLIKASI: Berisi judul utama dan deskripsi singkat -->
+        <header class="app-header">
+            <div class="logo-icon">🎯</div>
+            <h1>Task & Score Tracker</h1>
+            <p>Kelola produktivitas harian Anda secara menyenangkan! Selesaikan tugas dan kumpulkan poin Anda.</p>
+        </header>
+
+        <!-- KONTEN UTAMA: Area kerja tempat form, daftar tugas, dan skor berada -->
+        <main class="app-main">
+            
+            <!-- PANEL KIRI (TASK SECTION): Area input tugas dan daftar tugas -->
+            <section class="task-section">
+                
+                <!-- Kartu 1: Form untuk menginput tugas baru -->
+                <div class="card">
+                    <h2 class="card-title">📝 Tambah Tugas Baru</h2>
+                    <form id="task-form">
+                        <!-- Input Nama Tugas -->
+                        <div class="form-group">
+                            <label for="task-title">Nama Tugas / Aktivitas</label>
+                            <input 
+                                type="text" 
+                                id="task-title" 
+                                placeholder="Contoh: Menyelesaikan tantangan coding..." 
+                                required
+                            >
+                        </div>
+                        
+                        <!-- Pilihan Tingkat Kesulitan & Skor -->
+                        <div class="form-group">
+                            <label for="task-difficulty">Tingkat Kesulitan (Bobot Skor)</label>
+                            <select id="task-difficulty">
+                                <option value="10">Mudah (+10 Poin)</option>
+                                <option value="20" selected>Sedang (+20 Poin)</option>
+                                <option value="30">Sulit (+30 Poin)</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Tombol Submit Form -->
+                        <button type="submit" id="btn-add-task" class="btn-primary">Tambah ke Daftar</button>
+                    </form>
+                </div>
+
+                <!-- Kartu 2: Daftar tugas yang masih aktif / harus dikerjakan -->
+                <div class="card">
+                    <h2 class="card-title">⏳ Tugas yang Harus Dikerjakan</h2>
+                    <ul id="task-list" class="task-list">
+                        <!-- Catatan: Elemen daftar tugas akan dimuat secara dinamis oleh JavaScript -->
+                        <!-- Jika kosong, akan digantikan oleh pesan placeholder default -->
+                        <li class="empty-state">Belum ada tugas aktif. Tambahkan tugas baru di atas!</li>
+                    </ul>
+                </div>
+
+                <!-- Kartu 3: Daftar tugas yang telah diselesaikan -->
+                <div class="card">
+                    <h2 class="card-title">✅ Tugas yang Telah Selesai</h2>
+                    <ul id="completed-list" class="task-list completed">
+                        <!-- Catatan: Elemen tugas selesai akan dipindahkan ke sini secara otomatis -->
+                        <li class="empty-state">Belum ada tugas yang diselesaikan. Semangat!</li>
+                    </ul>
+                </div>
+
+            </section>
+
+            <!-- PANEL KANAN (SCORE SECTION): Statistik, papan skor, dan tombol kontrol -->
+            <section class="score-section">
+                
+                <!-- Kartu 1: Papan Skor Utama (Menampilkan total poin) -->
+                <div class="card scoreboard-card">
+                    <h2>🏆 Total Skor Anda</h2>
+                    <div class="score-display">
+                        <span id="total-score" class="score-value">0</span>
+                        <span class="score-unit">Poin</span>
+                    </div>
+                </div>
+
+                <!-- Kartu 2: Informasi statistik detail dan progres bar -->
+                <div class="card stats-card">
+                    <h2 class="card-title">📈 Statistik Progres</h2>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-label">Sisa Tugas:</span>
+                            <span id="active-count" class="stat-value">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Tugas Selesai:</span>
+                            <span id="completed-count" class="stat-value">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Persentase Selesai:</span>
+                            <span id="completion-rate" class="stat-value">0%</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Progress Bar: Representasi visual tingkat penyelesaian tugas -->
+                    <div class="progress-container">
+                        <div id="progress-bar" class="progress-bar" style="width: 0%;"></div>
+                    </div>
+                </div>
+
+                <!-- Kartu 3: Tombol reset dan kontrol aplikasi keseluruhan -->
+                <div class="card control-card">
+                    <h2 class="card-title">⚙️ Kontrol Aplikasi</h2>
+                    <div class="control-actions">
+                        <button id="btn-clear-completed" class="btn-secondary">Hapus Riwayat Selesai</button>
+                        <button id="btn-reset-all" class="btn-danger">Reset Semua Data</button>
+                    </div>
+                </div>
+
+            </section>
+            
+        </main>
+
+        <!-- FOOTER APLIKASI: Informasi hak cipta dan pengembang -->
+        <footer class="app-footer">
+            <p>&copy; 2026 Task & Score Tracker. Menggunakan HTML5, CSS3, & Modern JS.</p>
+        </footer>
+
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- BAGIAN SCRIPT JAVASCRIPT                                 -->
+    <!-- ======================================================== -->
+    <!-- Menghubungkan file JavaScript eksternal di akhir body agar loading halaman lebih cepat -->
+    <script src="app.js"></script>
+</body>
+</html>
